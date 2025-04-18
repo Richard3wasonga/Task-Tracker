@@ -8,7 +8,7 @@ const App = () => {
     fetch('https://task-traker-server.vercel.app/tasks')
     .then(res => res.json())
     .then(data => setTasks(data))
-  }, [Tasks])
+  }, [])
   const handleAddTask = (newTask) => {
     fetch('https://task-traker-server.vercel.app/tasks', {
       method: 'POST',
