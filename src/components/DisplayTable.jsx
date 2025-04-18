@@ -1,6 +1,40 @@
-import React from 'react'
+import React,{useState} from 'react'
 
 const DisplayTable = ({tasks,setTasks}) => {
+  const [isChecked, setisChecked] = useState(false)
+  
+  const handleDelete = (id) => {
+    const removedTasks = tasks.filter(task=> task.id !==id)
+    setTasks(removedTasks)
+
+  }
+  const handleChecked = (id) =>{
+    const doneTasks = tasks.map(task => {
+      if(task.id === id){
+        return {...task,completed: !task.completed}
+      }
+      return task
+    })
+    setTasks(doneTasks)
+
+    const updatedDoneTask = doneTasks.find(task => task.id === id);
+
+    fetch(`https://task-traker-server.vercel.app/tasks/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ 
+        id: updatedTask.id,
+        title: updatedTask.title,
+        completed: updatedDoneTask.completed
+       }),
+    })
+    .then(response =>  response.json())
+    .then(data => console.log(data))
+    .catch(error => {console.error('Error:', error);});
+  };
+  
   
   return (
     <div>
@@ -21,12 +55,12 @@ const DisplayTable = ({tasks,setTasks}) => {
                 <input 
                   type="checkbox" 
                   checked={task.completed} 
-                  onChange={() => toggleCompletion(task.id)} 
+                  onChange={() => handleChecked(task.id)} 
                 />
               </td>
               <td>
                 <button className='editbtn' onClick={onclick}>Edit</button>
-                <button className='deletebtn' onClick={onclick}>Delete</button>
+                <button className='deletebtn' onClick={() => handleDelete(task.id)}>Delete</button>
               </td>
             </tr>
           ))}
