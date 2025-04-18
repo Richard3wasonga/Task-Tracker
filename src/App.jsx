@@ -8,7 +8,7 @@ const App = () => {
     fetch('https://task-traker-server.vercel.app/tasks')
     .then(res => res.json())
     .then(data => setTasks(data))
-  }, [])
+  }, [Tasks])
   const handleAddTask = (newTask) => {
     fetch('https://task-traker-server.vercel.app/tasks', {
       method: 'POST',
@@ -25,7 +25,7 @@ const App = () => {
       }
     })
     .then(savedTask => {
-      setTasks([...Tasks, savedTask]); 
+      setTasks(prevTasks => [...prevTasks, savedTask]); 
     })
     .catch(err => {console.error("Error adding task:", err);});
   };
@@ -34,7 +34,7 @@ const App = () => {
     <div>
       <h1>Task Tracker</h1>
       <AddForm tasks={Tasks} setTasks={setTasks} onAddTask={handleAddTask}/>
-      <DisplayTable tasks={Tasks}/>
+      <DisplayTable tasks={Tasks} setTasks={setTasks}/>
     </div>
   )
 }

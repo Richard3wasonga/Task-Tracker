@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+.addinput {
+  padding: 10px 16px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  font-size: 16px;
+  width: 250px;
+  transition: border-color 0.3s ease;
+  margin-right: 10px;
+}
+
+.addinput:focus {
+  border-color: orange;
+}
+
+.addbtn {
+  padding: 10px 20px;
+  background-color: orange;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.addbtn:hover {
+  background-color: #FFAA33;
+}
+
+.addbtn:active {
+  transform: scale(0.98);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-family: 'Poppins', sans-serif;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+thead {
+  background-color: orange;
+  color: white;
+}
+
+thead th {
+  padding: 14px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+tbody tr {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tbody td {
+  padding: 12px 14px;
+  font-size: 15px;
+  color: #333;
+}
+
+input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #4CAF50;
+  cursor: pointer;
+}
+
+.editbtn,
+.deletebtn {
+  padding: 6px 14px;
+  margin-right: 6px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+}
+
+.editbtn {
+  background-color: #2196F3;
+}
+
+.editbtn:hover {
+  background-color: #1976D2;
+}
+
+.deletebtn {
+  background-color: #f44336;
+}
+
+.deletebtn:hover {
+  background-color: #d32f2f;
+}
+h2{
+  font-family: 'Poppins', sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  text-align: center;
+  color: #2e2e2e;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+h1{
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+  letter-spacing: 1px;
+  background-color: beige;
+  padding: 15px 0;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px green;
+}
