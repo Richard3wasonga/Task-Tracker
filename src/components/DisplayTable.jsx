@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 
 const DisplayTable = ({tasks,setTasks}) => {
-  const [isChecked, setisChecked] = useState(false)
+
   
   const handleDelete = (id) => {
     const removedTasks = tasks.filter(task=> task.id !==id)

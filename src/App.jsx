@@ -33,7 +33,7 @@ const App = () => {
   return (
     <div>
       <h1>Task Tracker</h1>
-      <AddForm tasks={Tasks} setTasks={setTasks} onAddTask={handleAddTask}/>
+      <AddForm tasks={Tasks} onAddTask={handleAddTask}/>
       <DisplayTable tasks={Tasks} setTasks={setTasks}/>
     </div>
   )
