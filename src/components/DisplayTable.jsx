@@ -35,6 +35,32 @@ const DisplayTable = ({tasks,setTasks}) => {
     .catch(error => {console.error('Error:', error);});
   };
   
+  const handleEdit = (id) => {
+    const currentTask = tasks.find(task => task.id === id);
+    const newTitle = window.prompt("Edit task title:", currentTask.title);
+
+    if (newTitle && newTitle !== currentTask.title) {
+      const updatedTasks = tasks.map(task =>
+        task.id === id ? { ...task, title: newTitle } : task
+      );
+      setTasks(updatedTasks);
+
+      fetch(`https://task-traker-server.vercel.app/tasks/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id,
+          title: newTitle,
+          completed: currentTask.completed
+        }),
+      })
+        .then(res => res.json())
+        .then(data => console.log("Updated:", data))
+        .catch(err => console.error("Update failed:", err));
+    }
+  };
   
   return (
     <div>
@@ -59,7 +85,7 @@ const DisplayTable = ({tasks,setTasks}) => {
                 />
               </td>
               <td>
-                <button className='editbtn' onClick={onclick}>Edit</button>
+                <button className='editbtn' onClick={() => handleEdit(task.id)}>Edit</button>
                 <button className='deletebtn' onClick={() => handleDelete(task.id)}>Delete</button>
               </td>
             </tr>
