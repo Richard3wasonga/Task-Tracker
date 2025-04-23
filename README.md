@@ -25,7 +25,7 @@ Access the live application here: [Live Link](https:task-tracker-eosin-pi.vercel
 ### **AddForm.jsx**
 This script uses data from the input field and storing them in state,then a new object is created and uploaded to the server and update the UI.
 
-```react
+```jsx
 
 import React,{useState} from 'react'
 
@@ -71,7 +71,7 @@ This script gets the todos data passed down as props and displays them on a tabl
 - Delete task
 - Edits task(updates title via window prompt)
 
-```react
+```jsx
 import React,{useState} from 'react'
 
 const DisplayTable = ({tasks,setTasks}) => {
@@ -179,7 +179,7 @@ export default DisplayTable
 
 This script houses whre the main data is fetched and uses the passed down object from add form to add new task to the server
 
-```react
+```jsx
 
 import React,{useState,useEffect} from 'react'
 import AddForm from './components/AddForm'
