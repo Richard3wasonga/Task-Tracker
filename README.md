@@ -69,7 +69,7 @@ export default AddForm
 This script gets the todos data passed down as props and displays them on a table.Other features include:
 
 - Delete task
-- Edits task(updates title via window prompt)
+- Edits task (Updates title via window prompt)
 
 ```jsx
 import React,{useState} from 'react'
@@ -226,6 +226,12 @@ export default App
 
 ```
 ---
+
+## **Features overview**
+
+- Adding tasks
+- Editing tasks
+- Deleting tasks
 
 ## **Future Improvements**
 
