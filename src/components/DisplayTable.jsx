@@ -3,11 +3,24 @@ import React,{useState} from 'react'
 const DisplayTable = ({tasks,setTasks}) => {
 
   
-  const handleDelete = (id) => {
-    const removedTasks = tasks.filter(task=> task.id !==id)
-    setTasks(removedTasks)
-
-  }
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`https://task-traker-server.vercel.app/tasks/${id}`, {
+        method: 'DELETE',
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to delete the task on the server');
+      }
+  
+      
+      const removedTasks = tasks.filter(task => task.id !== id);
+      setTasks(removedTasks);
+    } catch (error) {
+      console.error('Error deleting task:', error);
+    }
+  };
+  
   const handleChecked = (id) =>{
     const doneTasks = tasks.map(task => {
       if(task.id === id){
