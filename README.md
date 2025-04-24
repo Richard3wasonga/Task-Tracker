@@ -237,6 +237,7 @@ export default App
 
 - Preventing empty spaces from being added
 - Enchance the UI/UX for a mordern look.
+- Automatic update without need for page refresh.
 
 ## **Authors**
 - Richard Wasonga - [GitHub Profile](https://github.com/Richard3wasonga)
