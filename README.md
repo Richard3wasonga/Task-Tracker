@@ -252,7 +252,6 @@ export default AddForm;
 
 ## **Future Improvements**
 
-- Preventing empty spaces from being added
 - Enchance the UI/UX for a mordern look.
 - Automatic update without need for page refresh.
 
