@@ -1,129 +1,162 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-.addinput {
-  padding: 10px 16px;
-  border: 2px solid #ccc;
+
+.table-container {
+  margin: 20px;
+  padding: 20px;
   border-radius: 8px;
-  outline: none;
-  font-size: 16px;
-  width: 250px;
-  transition: border-color 0.3s ease;
-  margin-right: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
 }
 
-.addinput:focus {
-  border-color: orange;
+
+.table-title {
+  color: #333;
+  margin-bottom: 15px;
+  text-align: center;
 }
 
-.addbtn {
-  padding: 10px 20px;
-  background-color: orange;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.1s ease;
-}
 
-.addbtn:hover {
-  background-color: #FFAA33;
-}
-
-.addbtn:active {
-  transform: scale(0.98);
-}
-table {
+.task-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
-  font-family: 'Poppins', sans-serif;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
+  margin-top: 10px;
 }
 
-thead {
-  background-color: orange;
-  color: white;
+
+.table-header-row {
+  background-color: #f5f5f5;
 }
 
-thead th {
-  padding: 14px;
+.table-header {
+  padding: 12px;
   text-align: left;
+  border-bottom: 2px solid #ddd;
   font-weight: 600;
-  font-size: 16px;
 }
 
-tbody tr {
-  border-bottom: 1px solid #e0e0e0;
+
+.table-row {
+  border-bottom: 1px solid #eee;
 }
 
-tbody tr:nth-child(even) {
+.table-row:hover {
   background-color: #f9f9f9;
 }
 
-tbody td {
-  padding: 12px 14px;
-  font-size: 15px;
-  color: #333;
+.completed-task {
+  background-color: #f0fff0;
 }
 
-input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  accent-color: #4CAF50;
+.completed-task .task-title {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.table-data {
+  padding: 12px;
+  vertical-align: middle;
+}
+
+
+.task-checkbox {
+  transform: scale(1.2);
   cursor: pointer;
 }
 
-.editbtn,
-.deletebtn {
-  padding: 6px 14px;
-  margin-right: 6px;
+
+.task-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-btn,
+.delete-btn {
+  padding: 6px 12px;
   border: none;
-  border-radius: 6px;
-  font-weight: 500;
-  font-size: 14px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.edit-btn {
+  background-color: #4CAF50;
   color: white;
 }
 
-.editbtn {
-  background-color: #2196F3;
+.edit-btn:hover {
+  background-color: #45a049;
 }
 
-.editbtn:hover {
-  background-color: #1976D2;
-}
-
-.deletebtn {
+.delete-btn {
   background-color: #f44336;
+  color: white;
 }
 
-.deletebtn:hover {
+.delete-btn:hover {
   background-color: #d32f2f;
 }
-h2{
-  font-family: 'Poppins', sans-serif;
-  font-size: 28px;
-  font-weight: 600;
-  text-align: center;
-  color: #2e2e2e;
-  margin-top: 30px;
-  margin-bottom: 20px;
+
+.add-form-container {
+  margin: 20px 0;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-h1{
-  font-family: 'Poppins', sans-serif;
-  font-size: 2.5rem;
-  font-weight: 600;
-  text-align: center;
-  margin-bottom: 25px;
-  color: #333;
-  letter-spacing: 1px;
-  background-color: beige;
-  padding: 15px 0;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px green;
+
+
+.task-form {
+  display: flex;
+  gap: 10px;
+}
+
+
+.add-input {
+  flex: 1;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.add-input:focus {
+  outline: none;
+  border-color: #4CAF50;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+.add-input::placeholder {
+  color: #999;
+}
+
+
+.add-btn {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-btn:hover {
+  background-color: #45a049;
+}
+
+.add-btn:active {
+  transform: scale(0.98);
+}
+
+
+@media (max-width: 600px) {
+  .task-form {
+    flex-direction: column;
+  }
+  
+  .add-btn {
+    width: 100%;
+  }
 }
