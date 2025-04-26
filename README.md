@@ -72,24 +72,35 @@ This script gets the todos data passed down as props and displays them on a tabl
 - Edits task (Updates title via window prompt)
 
 ```jsx
-import React,{useState} from 'react'
+import React from 'react';
 
-const DisplayTable = ({tasks,setTasks}) => {
 
-  
-  const handleDelete = (id) => {
-    const removedTasks = tasks.filter(task=> task.id !==id)
-    setTasks(removedTasks)
+const DisplayTable = ({ tasks, setTasks }) => {
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`https://task-traker-server.vercel.app/tasks/${id}`, {
+        method: 'DELETE',
+      });
 
-  }
-  const handleChecked = (id) =>{
-    const doneTasks = tasks.map(task => {
-      if(task.id === id){
-        return {...task,completed: !task.completed}
+      if (!response.ok) {
+        throw new Error('Failed to delete the task on the server');
       }
-      return task
-    })
-    setTasks(doneTasks)
+
+      const removedTasks = tasks.filter(task => task.id !== id);
+      setTasks(removedTasks);
+    } catch (error) {
+      console.error('Error deleting task:', error);
+    }
+  };
+
+  const handleChecked = (id) => {
+    const doneTasks = tasks.map(task => {
+      if (task.id === id) {
+        return { ...task, completed: !task.completed };
+      }
+      return task;
+    });
+    setTasks(doneTasks);
 
     const updatedDoneTask = doneTasks.find(task => task.id === id);
 
@@ -98,17 +109,17 @@ const DisplayTable = ({tasks,setTasks}) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ 
-        id: updatedTask.id,
-        title: updatedTask.title,
-        completed: updatedDoneTask.completed
-       }),
+      body: JSON.stringify({
+        id: updatedDoneTask.id,
+        title: updatedDoneTask.title,
+        completed: updatedDoneTask.completed,
+      }),
     })
-    .then(response =>  response.json())
-    .then(data => console.log(data))
-    .catch(error => {console.error('Error:', error);});
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error('Error:', error));
   };
-  
+
   const handleEdit = (id) => {
     const currentTask = tasks.find(task => task.id === id);
     const newTitle = window.prompt("Edit task title:", currentTask.title);
@@ -127,7 +138,7 @@ const DisplayTable = ({tasks,setTasks}) => {
         body: JSON.stringify({
           id,
           title: newTitle,
-          completed: currentTask.completed
+          completed: currentTask.completed,
         }),
       })
         .then(res => res.json())
@@ -135,42 +146,43 @@ const DisplayTable = ({tasks,setTasks}) => {
         .catch(err => console.error("Update failed:", err));
     }
   };
-  
+
   return (
-    <div>
-        <h2>Task List</h2>
-      <table>
+    <div className="table-container">
+      <h2 className="table-title">Task List</h2>
+      <table className="task-table">
         <thead>
-          <tr>
-            <th>Task</th>
-            <th>Completed</th>
-            <th>Actions</th>
+          <tr className="table-header-row">
+            <th className="table-header">Task</th>
+            <th className="table-header">Completed</th>
+            <th className="table-header">Actions</th>
           </tr>
         </thead>
         <tbody>
           {tasks.map(task => (
-            <tr key={task.id}>
-              <td>{task.title}</td>
-              <td>
-                <input 
-                  type="checkbox" 
-                  checked={task.completed} 
-                  onChange={() => handleChecked(task.id)} 
+            <tr key={task.id} className={`table-row ${task.completed ? 'completed-task' : ''}`}>
+              <td className="table-data task-title">{task.title}</td>
+              <td className="table-data">
+                <input
+                  type="checkbox"
+                  className="task-checkbox"
+                  checked={task.completed}
+                  onChange={() => handleChecked(task.id)}
                 />
               </td>
-              <td>
-                <button className='editbtn' onClick={() => handleEdit(task.id)}>Edit</button>
-                <button className='deletebtn' onClick={() => handleDelete(task.id)}>Delete</button>
+              <td className="table-data task-actions">
+                <button className="edit-btn" onClick={() => handleEdit(task.id)}>Edit</button>
+                <button className="delete-btn" onClick={() => handleDelete(task.id)}>Delete</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
-  )
-}
+  );
+};
 
-export default DisplayTable
+export default DisplayTable;
 
 ```
 ---
@@ -181,48 +193,53 @@ This script houses whre the main data is fetched and uses the passed down object
 
 ```jsx
 
-import React,{useState,useEffect} from 'react'
-import AddForm from './components/AddForm'
-import DisplayTable from './components/DisplayTable'
+import React, { useState } from 'react';
 
-const App = () => {
-  const [Tasks, setTasks] = useState([])
-  useEffect(() => {
-    fetch('https://task-traker-server.vercel.app/tasks')
-    .then(res => res.json())
-    .then(data => setTasks(data))
-  }, [])
-  const handleAddTask = (newTask) => {
-    fetch('https://task-traker-server.vercel.app/tasks', {
-      method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json'
-       },
-      body: JSON.stringify(newTask),
-    })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        throw new Error("Failed to add task");
-      }
-    })
-    .then(savedTask => {
-      setTasks(prevTasks => [...prevTasks, savedTask]); 
-    })
-    .catch(err => {console.error("Error adding task:", err);});
+
+const AddForm = ({ tasks, onAddTask }) => {
+  const [newTask, setNewTask] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!newTask.trim()) return; 
+
+    const lastId = tasks.length > 0 ? parseInt(tasks[tasks.length - 1].id) : 0;
+    const newId = (lastId + 1).toString();
+
+    const newTaskObj = {
+      id: newId,
+      title: newTask,
+      completed: false,
+    };
+
+    onAddTask(newTaskObj);
+    setNewTask('');
   };
-  
-  return (
-    <div>
-      <h1>Task Tracker</h1>
-      <AddForm tasks={Tasks} onAddTask={handleAddTask}/>
-      <DisplayTable tasks={Tasks} setTasks={setTasks}/>
-    </div>
-  )
-}
 
-export default App
+  const handleNewTask = (e) => {
+    setNewTask(e.target.value);
+  };
+
+  return (
+    <div className="add-form-container">
+      <form onSubmit={handleSubmit} className="task-form">
+        <input
+          type="text"
+          className="add-input"
+          placeholder="Add a new task..."
+          value={newTask}
+          onChange={handleNewTask}
+          required
+        />
+        <button className="add-btn" type="submit">
+          Add Task
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default AddForm;
 
 ```
 ---
